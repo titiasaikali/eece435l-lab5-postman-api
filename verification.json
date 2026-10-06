@@ -1,0 +1,87 @@
+{
+  "transport": "real local HTTP",
+  "database": "isolated temporary SQLite",
+  "results": [
+    {
+      "request": "1. Add user",
+      "method": "POST",
+      "path": "/api/users/add",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "request": "2. Get all users",
+      "method": "GET",
+      "path": "/api/users",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "request": "3. Get user by ID",
+      "method": "GET",
+      "path": "/api/users/1",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "request": "4. Update user",
+      "method": "PUT",
+      "path": "/api/users/update",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "request": "5. Delete user",
+      "method": "DELETE",
+      "path": "/api/users/delete/1",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "method": "GET",
+      "path": "/api/users/1",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/users/delete/1",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/update",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/api/users/add",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/api/users/add",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "method": "PUT",
+      "path": "/api/users/update",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "method": "POST",
+      "path": "/api/users/add",
+      "status": 400,
+      "passed": true
+    }
+  ],
+  "additional_checks": [
+    "updated data persisted",
+    "deleted user absent from list"
+  ]
+}
