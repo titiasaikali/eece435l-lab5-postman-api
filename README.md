@@ -52,16 +52,10 @@ Tutorial references from the handout: [Postman quick start](https://learning.pos
 
 This exercises the API over real local HTTP using a temporary database, verifies CRUD and invalid requests, and regenerates the saved examples plus `verification.json`. It leaves the application's database untouched.
 
-## GitHub step
+## GitHub submission
 
-Local Git history contains the database commit, a REST API feature branch, and its merge into main. No GitHub repository has been created or uploaded from this environment.
+The project is uploaded to [titiasaikali/eece435l-lab5-postman-api](https://github.com/titiasaikali/eece435l-lab5-postman-api). Both main and feature/rest-api are on GitHub. Git history contains the database commit, a REST API feature branch, and its merge into main.
 
-Create an empty GitHub repository (without an initial README), then run these commands, replacing YOUR_USERNAME and YOUR_REPOSITORY:
+The repository is private. Give your instructor access before submitting the link, or change visibility to public if your course requires it.
 
-```powershell
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
-git push -u origin main
-git push origin feature/rest-api
-```
-
-The handout's remote pull step needs an actual GitHub remote; the local branch starts from the database commit. Postman workspace import, browser viewing, and any screenshots required by your instructor remain account/UI steps; the exports and HTTP verification do not claim those actions were performed.
+The feature branch was created locally from the database commit; the handout's intermediate remote pull was not performed. Postman workspace import, browser viewing, and any screenshots required by your instructor remain account/UI steps; the exports and HTTP verification do not claim those actions were performed.
