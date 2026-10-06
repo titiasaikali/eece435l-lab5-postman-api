@@ -56,6 +56,6 @@ This exercises the API over real local HTTP using a temporary database, verifies
 
 The project is uploaded to [titiasaikali/eece435l-lab5-postman-api](https://github.com/titiasaikali/eece435l-lab5-postman-api). Both main and feature/rest-api are on GitHub. Git history contains the database commit, a REST API feature branch, and its merge into main.
 
-The repository is private. Give your instructor access before submitting the link, or change visibility to public if your course requires it.
+The repository is public. Your instructor can open the submission link without signing in or requesting access.
 
 The feature branch was created locally from the database commit; the handout's intermediate remote pull was not performed. Postman workspace import, browser viewing, and any screenshots required by your instructor remain account/UI steps; the exports and HTTP verification do not claim those actions were performed.
