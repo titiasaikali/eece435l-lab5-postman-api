@@ -31,7 +31,14 @@
       "passed": true
     },
     {
-      "request": "5. Delete user",
+      "request": "5. Patch user",
+      "method": "PATCH",
+      "path": "/api/users/1",
+      "status": 200,
+      "passed": true
+    },
+    {
+      "request": "6. Delete user",
       "method": "DELETE",
       "path": "/api/users/delete/1",
       "status": 200,
@@ -53,6 +60,30 @@
       "method": "PUT",
       "path": "/api/users/update",
       "status": 404,
+      "passed": true
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/1",
+      "status": 404,
+      "passed": true
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/1",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/1",
+      "status": 400,
+      "passed": true
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/users/1",
+      "status": 400,
       "passed": true
     },
     {

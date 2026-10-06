@@ -48,6 +48,22 @@ def api_delete_user(user_id):
         return jsonify(status='User deleted successfully')
     return jsonify(error='User not found'), 404
 
+@app.patch('/api/users/<int:user_id>')
+def api_patch_user(user_id):
+    changes = request.get_json()
+    if not isinstance(changes, dict) or not changes:
+        return jsonify(error='Provide a nonempty JSON object with fields to update'), 400
+    if any(field not in FIELDS for field in changes):
+        return jsonify(error='Only name, email, phone, address and country may be updated'), 400
+    if any(not isinstance(value, str) or not value.strip() for value in changes.values()):
+        return jsonify(error='Updated fields must be nonempty strings'), 400
+    user = get_user_by_id(user_id)
+    if user is None:
+        return jsonify(error='User not found'), 404
+    user.update(changes)
+    updated = update_user(user)
+    return jsonify(updated) if updated else (jsonify(error='User not found'), 404)
+
 @app.errorhandler(HTTPException)
 def http_error(error):
     return jsonify(error=error.description), error.code

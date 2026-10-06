@@ -1,0 +1,165 @@
+[
+  {
+    "screenshot": "01-get-empty.png",
+    "method": "GET",
+    "url": "http://localhost:5000/api/users",
+    "request_body": null,
+    "response": {
+      "status": 200,
+      "body": []
+    }
+  },
+  {
+    "screenshot": "02-post-create.png",
+    "method": "POST",
+    "url": "http://localhost:5000/api/users/add",
+    "request_body": {
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "067765434567",
+      "address": "John Doe Street, Innsbruck",
+      "country": "Austria"
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "address": "John Doe Street, Innsbruck",
+        "country": "Austria",
+        "email": "johndoe@example.com",
+        "name": "John Doe",
+        "phone": "067765434567",
+        "user_id": 1
+      }
+    }
+  },
+  {
+    "screenshot": "03-get-list.png",
+    "method": "GET",
+    "url": "http://localhost:5000/api/users",
+    "request_body": null,
+    "response": {
+      "status": 200,
+      "body": [
+        {
+          "address": "John Doe Street, Innsbruck",
+          "country": "Austria",
+          "email": "johndoe@example.com",
+          "name": "John Doe",
+          "phone": "067765434567",
+          "user_id": 1
+        }
+      ]
+    }
+  },
+  {
+    "screenshot": "04-get-user.png",
+    "method": "GET",
+    "url": "http://localhost:5000/api/users/1",
+    "request_body": null,
+    "response": {
+      "status": 200,
+      "body": {
+        "address": "John Doe Street, Innsbruck",
+        "country": "Austria",
+        "email": "johndoe@example.com",
+        "name": "John Doe",
+        "phone": "067765434567",
+        "user_id": 1
+      }
+    }
+  },
+  {
+    "screenshot": "05-put-update.png",
+    "method": "PUT",
+    "url": "http://localhost:5000/api/users/update",
+    "request_body": {
+      "name": "Jane Doe",
+      "email": "janedoe@example.com",
+      "phone": "067765434567",
+      "address": "John Doe Street, Innsbruck",
+      "country": "Austria",
+      "user_id": 1
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "address": "John Doe Street, Innsbruck",
+        "country": "Austria",
+        "email": "janedoe@example.com",
+        "name": "Jane Doe",
+        "phone": "067765434567",
+        "user_id": 1
+      }
+    }
+  },
+  {
+    "screenshot": "06-patch-update.png",
+    "method": "PATCH",
+    "url": "http://localhost:5000/api/users/1",
+    "request_body": {
+      "country": "Lebanon"
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "address": "John Doe Street, Innsbruck",
+        "country": "Lebanon",
+        "email": "janedoe@example.com",
+        "name": "Jane Doe",
+        "phone": "067765434567",
+        "user_id": 1
+      }
+    }
+  },
+  {
+    "screenshot": "07-get-after-update.png",
+    "method": "GET",
+    "url": "http://localhost:5000/api/users/1",
+    "request_body": null,
+    "response": {
+      "status": 200,
+      "body": {
+        "address": "John Doe Street, Innsbruck",
+        "country": "Lebanon",
+        "email": "janedoe@example.com",
+        "name": "Jane Doe",
+        "phone": "067765434567",
+        "user_id": 1
+      }
+    }
+  },
+  {
+    "screenshot": "08-delete-user.png",
+    "method": "DELETE",
+    "url": "http://localhost:5000/api/users/delete/1",
+    "request_body": null,
+    "response": {
+      "status": 200,
+      "body": {
+        "status": "User deleted successfully"
+      }
+    }
+  },
+  {
+    "screenshot": "09-get-after-delete.png",
+    "method": "GET",
+    "url": "http://localhost:5000/api/users",
+    "request_body": null,
+    "response": {
+      "status": 200,
+      "body": []
+    }
+  },
+  {
+    "screenshot": "10-get-not-found.png",
+    "method": "GET",
+    "url": "http://localhost:5000/api/users/1",
+    "request_body": null,
+    "response": {
+      "status": 404,
+      "body": {
+        "error": "User not found"
+      }
+    }
+  }
+]

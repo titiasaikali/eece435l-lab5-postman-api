@@ -46,6 +46,9 @@ def main():
                            'pm.test("User created", () => pm.expect(data.name).to.eql("John Doe"));']
             elif method == 'PUT':
                 script += ['pm.test("User updated", () => pm.expect(data.name).to.eql("Jane Doe"));']
+            elif method == 'PATCH':
+                script += ['pm.test("Country patched", () => pm.expect(data.country).to.eql("Lebanon"));',
+                           'pm.test("Other fields preserved", () => pm.expect(data.name).to.eql("Jane Doe"));']
             elif method == 'DELETE':
                 script += ['pm.test("User deleted", () => pm.expect(data.status).to.eql("User deleted successfully"));']
             elif path == '/api/users':
@@ -70,13 +73,20 @@ def main():
             updated = dict(user, user_id=uid, name='Jane Doe', email='janedoe@example.com')
             record('4. Update user', 'PUT', '/api/users/update', updated, lambda d: d == updated)
             assert send('GET', f'/api/users/{uid}') == (200, updated)
-            record('5. Delete user', 'DELETE', f'/api/users/delete/{uid}',
+            patched = dict(updated, country='Lebanon')
+            record('5. Patch user', 'PATCH', f'/api/users/{uid}', {'country': 'Lebanon'}, lambda d: d == patched)
+            assert send('GET', f'/api/users/{uid}') == (200, patched)
+            record('6. Delete user', 'DELETE', f'/api/users/delete/{uid}',
                    check=lambda d: d['status'] == 'User deleted successfully')
             assert send('GET', '/api/users') == (200, [])
             for method, path, body, expected in [
                 ('GET', f'/api/users/{uid}', None, 404),
                 ('DELETE', f'/api/users/delete/{uid}', None, 404),
                 ('PUT', '/api/users/update', updated, 404),
+                ('PATCH', f'/api/users/{uid}', {'country': 'Lebanon'}, 404),
+                ('PATCH', f'/api/users/{uid}', {}, 400),
+                ('PATCH', f'/api/users/{uid}', {'user_id': 99}, 400),
+                ('PATCH', f'/api/users/{uid}', {'country': ''}, 400),
                 ('POST', '/api/users/add', {}, 400),
                 ('POST', '/api/users/add', [], 400),
                 ('PUT', '/api/users/update', dict(user, user_id='bad'), 400),
@@ -86,7 +96,7 @@ def main():
                 results.append({'method': method, 'path': path, 'status': status, 'passed': True})
             for item in items:
                 req = item['request']
-                if item['name'].startswith(('3.', '5.')):
+                if req['method'] in ('PATCH', 'DELETE') or item['name'].startswith('3.'):
                     req['url']['raw'] = req['url']['raw'].rsplit('/', 1)[0] + '/{{user_id}}'
                     req['url']['path'][-1] = '{{user_id}}'
                 if req['method'] == 'PUT':
@@ -97,8 +107,7 @@ def main():
                 'description': 'Lab 5 CRUD requests. Select the Lab5 Local environment and run in numbered order. Examples captured from real HTTP responses against an isolated SQLite database.',
                 'schema': 'https://schema.getpostman.com/json/collection/v2.1.0/collection.json'}, 'item': items}
             environment = {'name': 'Lab5 Local', 'values': [
-                {'key': 'base_url', 'value': 'http://127.0.0.1:5000', 'type': 'default', 'enabled': True},
-                {'key': 'user_id', 'value': '', 'type': 'default', 'enabled': True}],
+                {'key': 'base_url', 'value': 'http://localhost:5000', 'type': 'default', 'enabled': True}],
                 '_postman_variable_scope': 'environment'}
             (out / 'Flask user app.postman_collection.json').write_text(json.dumps(collection, indent=2), encoding='utf-8')
             (out / 'Lab5 Local.postman_environment.json').write_text(json.dumps(environment, indent=2), encoding='utf-8')
